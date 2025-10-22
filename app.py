@@ -20,6 +20,8 @@ from nltk import pos_tag
 from nltk.stem import WordNetLemmatizer
 from sentence_transformers import CrossEncoder
 lemmatizer=WordNetLemmatizer()
+cross_encoder_model=CrossEncoder('cross-encoder/stsb-roberta-base')
+sbert_embedder=SentenceTransformer('all-MiniLM-L6-v2')
 
 def clean_text(s):
     if not isinstance(s, str):
@@ -93,12 +95,10 @@ def similarity_score_generator(text1, text2):
     text2 = lemmatize_docs(text2)
 
     # Cross-Encoder Score
-    cross_encoder_model=CrossEncoder('cross-encoder/stsb-roberta-base')
     cross_encoder_score=cross_encoder_model.predict([(text1, text2)])
     print(cross_encoder_score)
 
     # SBERT Similarity Score
-    sbert_embedder=SentenceTransformer('all-MiniLM-L6-v2')
     embedding1=sbert_embedder.encode([text1])[0]
     embedding2=sbert_embedder.encode([text2])[0]
     sbert_similarity_score=abs(1-distance.cosine(embedding1, embedding2))
