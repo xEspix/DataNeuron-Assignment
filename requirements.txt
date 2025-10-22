@@ -7,3 +7,4 @@ scipy
 nltk
 tqdm
 regex
+gunicorn
