@@ -7,6 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from difflib import SequenceMatcher
 from tqdm.auto import tqdm
+import os
 
 nltk.download('stopwords')
 nltk.download('punkt_tab')      
@@ -132,4 +133,5 @@ def predict():
     return jsonify({'similarity score': float(score)})
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=2004, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port) 
