@@ -111,7 +111,7 @@ def similarity_score_generator(text1, text2):
     print(jaccard_score)
 
     # Final Similarity Score
-    final_similarity_score=jaccard_score
+    final_similarity_score=(cross_encoder_score+sbert_similarity_score+jaccard_score)/3
     print(final_similarity_score)
 
     return final_similarity_score
